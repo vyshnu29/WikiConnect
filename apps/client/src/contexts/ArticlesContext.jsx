@@ -25,18 +25,7 @@ const useArticlesContext = () => useContext(ArticlesContext);
   
   }
 
- async function addNewArticle(payload) {
-    return () => {
-      make_API_call("post", `${BASE_URL}/articles`, payload)
-        .then((data) => {
-          console.log(data)
-          showSnackbar(data.message, 'success')
-        })
-        .catch((err) => {
-            showSnackbar(err.message, 'error')
-        })
-    }
-  }
+
 
   async function getArticles(categoryId) {
     try {
@@ -57,7 +46,7 @@ const useArticlesContext = () => useContext(ArticlesContext);
 
 
   const services = {
-    addNewArticle,
+    
     getArticles
   }
   return (

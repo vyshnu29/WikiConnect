@@ -38,6 +38,19 @@ const useCategoryContext = () => useContext(CategoryContext);
     }
   }
 
+  async function addNewArticle(payload) {
+ 
+      make_API_call("post", `${BASE_URL}/articles`, payload)
+        .then((data) => {
+          console.log(data)
+          showSnackbar(data.message, 'success')
+        })
+        .catch((err) => {
+            showSnackbar(err.message, 'error')
+        })
+    
+  }
+
   async function getCategory() {
     try {
       setLoading(true);
@@ -54,7 +67,8 @@ const useCategoryContext = () => useContext(CategoryContext);
 
   const services = {
     addNewCategory,
-    getCategory
+    getCategory,
+    addNewArticle
   }
   return (
     <CategoryContext.Provider value={{ state, stateSetters, services }}>

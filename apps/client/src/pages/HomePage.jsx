@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
 // import Home from "../services/home/index";
 
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, CssBaseline, Dialog, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import StyledCard from "../shared/components/Card";
 import { GiClassicalKnowledge } from 'react-icons/gi';
 import { GrTechnology } from "react-icons/gr";
@@ -9,8 +10,14 @@ import { RiHealthBookLine } from "react-icons/ri";
 import { GrArticle } from "react-icons/gr";
 import { IoIosSend } from "react-icons/io";
 // import { SiCodereview } from "react-icons/si";
-import { CategoryContextProvider } from "../contexts/CategoryContext";
-
+import { useDialog } from "../shared/hooks/useDialog";
+import { PiArticleNyTimesThin } from "react-icons/pi";
+import firebase from "firebase";
+import React from "react";
+import { CategoryContextProvider, useCategoryContext } from "../contexts/CategoryContext";
+import SunEditor from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
+import { useArticlesContext } from "../contexts/ArticlesContext";
 
 export default function HomePage() {
 	
@@ -42,6 +49,41 @@ export default function HomePage() {
 	
 		
 ]
+
+const { services , state} = useCategoryContext();
+
+	React.useEffect(() => {
+		services.getCategory();
+	}, []);
+
+	
+
+const [categoryId, setcategoryId] = React.useState('');
+const [content, setContent] = React.useState('');
+
+  const handleChange = (event) => {
+    setcategoryId(event.target.value);
+  };
+  
+
+  
+const handleSubmit = async(event) => {
+	event.preventDefault();
+	const data = new FormData(event.currentTarget);
+	const payload = {
+			title: data.get("title"),
+  			content: content?.content,
+  			categoryId: categoryId,
+  			userId: firebase.auth().currentUser.uid,
+  			isExist: true
+			}
+			console.log('data_res',payload)
+			await services.addNewArticle(payload)
+			// setLoading(false)
+			handleClose()
+};
+
+const { open, handleClickOpen, handleClose } = useDialog();
 	return(
 	<>
 		<Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
@@ -61,29 +103,141 @@ export default function HomePage() {
       </Container>
 	  <Grid container  justifyContent="center" spacing={8}>
     <Grid item>
-      <Button variant="contained"  sx={{backgroundColor:'#2196f3'}} disableElevation endIcon={<IoIosSend />}>
+      <Button variant="contained" onClick={handleClickOpen}  sx={{backgroundColor:'#2196f3'}} disableElevation endIcon={<IoIosSend />}>
         Create Articles
       </Button>
     </Grid>
+	<Dialog  open={open} onClose={handleClose}>
+        <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+		  <PiArticleNyTimesThin size={26} />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Create article
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="title"
+                  required
+                  fullWidth
+                  id="title"
+                  label="Title"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+			  <SunEditor
+            placeholder="Content"
+            setContents={content}
+            onChange={(data) => setContent({ content: data })}
+            height={200}
+            setOptions={{
+              buttonList: [
+                [
+                  "undo",
+                  "redo",
+                  "font",
+                  "fontSize",
+                  "formatBlock",
+                  "bold",
+                  "underline",
+                  "italic",
+                  "strike",
+                  "subscript",
+                  "superscript",
+                  "fontColor",
+                  "hiliteColor",
+                  "removeFormat",
+                  "outdent",
+                  "indent",
+                  "align",
+                  "horizontalRule",
+                  "list",
+                  "lineHeight",
+                  "table",
+                  "link",
+                  "image",
+                  "video",
+                  "showBlocks",
+                  "codeView",
+                ],
+              ],
+            }}
+          />
+              </Grid>
+              <Grid item xs={12}>
+			  <FormControl fullWidth >
+        <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={categoryId}
+          onChange={handleChange}
+          label="Category"
+        >
+			{
+				state?.category?.map((item ,index) => {
+					return(
+						<MenuItem key={index} value={item?.categoryId}>{item?.name}</MenuItem>
+					)
+				}
+				)
+			}
+        </Select>
+      </FormControl>
+              </Grid>
+              
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Create
+            </Button>
+          </Box>
+        </Box>
+          </Container>
+      </Dialog>
     {/* <Grid item>
       <Button variant="contained" sx={{backgroundColor:'#4caf50'}} disableElevation endIcon={<SiCodereview />}>
         View More Articles
       </Button>
     </Grid> */}
   </Grid>
+
 		<Grid container>
+	
 		 {
 			defaultCategories.map((data, index) => {
 		 		return(
 					<Grid  key={index} justifyContent="space-between" spacing={9} item xs={12} sm={6} md={6} lg={3}>
-		 			<CategoryContextProvider>
 					<StyledCard data={data} defaultCategories={defaultCategories}/>
-					 </CategoryContextProvider>
 					</Grid>
 		 		)
 		 	})
 		 }
+	
 		 </Grid>
+  
 		</>
 	)
 }

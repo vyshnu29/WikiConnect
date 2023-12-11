@@ -10,7 +10,9 @@ import { useArticlesContext } from '../../contexts/ArticlesContext';
 import { PiArticleNyTimesThin } from "react-icons/pi";
 import { useDialog } from '../hooks/useDialog';
 import ViewArticle from '../../pages/ViewArticle';
-
+import { Box } from '@mui/material';
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
 
 export default function ArticleList(props) {
   const { services , state} = useArticlesContext();
@@ -61,6 +63,16 @@ export default function ArticleList(props) {
               }
             />
           </ListItem>
+          <Box sx={{display:'flex', marginBottom:2, justifyContent:'flex-end'}}>
+              <Box sx={{marginRight:2}}>
+                  <AiFillLike color='#3498db' /> {Math.floor(Math.random() * 20) + 1}
+              </Box>
+              <Box sx={{marginRight:2}}>
+              <AiFillDislike  color='#e74c3c'/> {Math.floor(Math.random() * 20) + 1}
+              </Box>
+             
+            </Box>
+
           <Divider variant="inset" component="li" />
           
         </List>

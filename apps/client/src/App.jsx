@@ -5,6 +5,7 @@ import { protectedRoutes, publicRoutes } from "./routes"
 import { useEffect } from "react"
 import { auth } from "./db"
 import Navbar from "./layout/navbar"
+import { CategoryContextProvider } from "./contexts/CategoryContext"
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
    
     return (
       <Navbar>
+        <CategoryContextProvider>
         <Router>
         
         <Switch>
@@ -45,6 +47,7 @@ function App() {
           <Redirect to="/home" from="/" />
         </Switch>
       </Router>
+      </CategoryContextProvider>
       </Navbar>
     )
   }

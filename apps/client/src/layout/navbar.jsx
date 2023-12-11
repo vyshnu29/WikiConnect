@@ -77,7 +77,7 @@ function ResponsiveAppBar({ children }) {
     setAnchorElUser(null);
   };
 
-  console.log('dggfgf',state?.userDetails)
+
 
   return (
     <>
