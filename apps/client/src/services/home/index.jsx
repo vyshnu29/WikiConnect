@@ -27,6 +27,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  //Home page
+
   return (
     <AppBar>
       <Container maxWidth="xl">

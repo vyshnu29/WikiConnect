@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//Api call function
 const make_API_call = (req_method, path, data = {}) => {
   switch (req_method) {
     case "get":

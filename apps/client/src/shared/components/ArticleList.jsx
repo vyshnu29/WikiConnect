@@ -14,6 +14,8 @@ import { Box } from '@mui/material';
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
 
+
+//Article list component
 export default function ArticleList(props) {
   const { services , state} = useArticlesContext();
   const {categoryId} = props

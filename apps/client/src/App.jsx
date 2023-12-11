@@ -11,7 +11,7 @@ import { CategoryContextProvider } from "./contexts/CategoryContext"
 function App() {
   const { state,stateSetters  } = useAuthContext()
 
- 
+  //Main page
 
     useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -27,7 +27,7 @@ function App() {
   }
 
   if (auth.currentUser?.uid) {
-   
+   //Included Navbar for header and providers for context
     return (
       <Navbar>
         <CategoryContextProvider>

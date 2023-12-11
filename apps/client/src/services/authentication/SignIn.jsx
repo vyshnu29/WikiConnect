@@ -18,7 +18,7 @@ import {
 	VisibilityOff as VisibilityOffIcon,
 } from "@mui/icons-material";
 
-
+//Sign In Page
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -41,6 +41,8 @@ export default function SignInSide() {
   const [loading, setLoading] = useState(false)
   const history = useHistory(); 
   const [showPassword, setShowPassword] = useState(false)
+
+  //Submit function
 
   async function handleSubmit(e) {
     e.preventDefault()

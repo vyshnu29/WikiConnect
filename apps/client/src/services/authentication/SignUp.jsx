@@ -11,12 +11,13 @@ import { useState } from "react";
 import {  Container, Dialog} from "@mui/material";
 import { useDialog } from "../../shared/hooks/useDialog";
 
-
+//SignUp page
 export default function SignUp() {
   const { services } = useAuthContext()
   const [loading, setLoading] = useState(false)
   const { open, handleClickOpen, handleClose } = useDialog();
 
+  //Submit function
    const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,7 +33,7 @@ export default function SignUp() {
     handleClose()
   };
   
-
+//Component for sign up page
   return (
     <Grid container>
       <Grid item xs={12}>

@@ -3,6 +3,8 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { useSnackbar } from '../../contexts/SnackBarContext';
 
+
+//Alerts for snackbar
 const SnackbarAlert = () => {
   const { snackbarData, hideSnackbar } = useSnackbar();
 

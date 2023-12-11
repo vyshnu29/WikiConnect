@@ -9,7 +9,7 @@ import { ArticlesContextProvider } from '../../contexts/ArticlesContext';
 
 
 
-
+//article card component
 export default function StyledCard(props) {
 
     const {data} = props;

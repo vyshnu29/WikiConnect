@@ -1,5 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 
+//Loader component
 export default function Loader() {
 	return (
 		<Box
