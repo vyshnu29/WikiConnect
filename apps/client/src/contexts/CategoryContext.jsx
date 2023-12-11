@@ -42,7 +42,7 @@ const useCategoryContext = () => useContext(CategoryContext);
     try {
       setLoading(true);
       const data = await make_API_call("get", `${BASE_URL}/category`);
-     
+      console.log('data',data)
       setCategory(data);
     } catch (err) {
       console.log(err)
