@@ -15,8 +15,7 @@ import { PiArticleNyTimesThin } from "react-icons/pi";
 import firebase from "firebase";
 import React from "react";
 import { CategoryContextProvider, useCategoryContext } from "../contexts/CategoryContext";
-import SunEditor from "suneditor-react";
-import "suneditor/dist/css/suneditor.min.css";
+
 import { useArticlesContext } from "../contexts/ArticlesContext";
 
 export default function HomePage() {
@@ -59,7 +58,7 @@ const { services , state} = useCategoryContext();
 	
 
 const [categoryId, setcategoryId] = React.useState('');
-const [content, setContent] = React.useState('');
+
 
   const handleChange = (event) => {
     setcategoryId(event.target.value);
@@ -72,7 +71,7 @@ const handleSubmit = async(event) => {
 	const data = new FormData(event.currentTarget);
 	const payload = {
 			title: data.get("title"),
-  			content: content?.content,
+  			content: data.get("content"),
   			categoryId: categoryId,
   			userId: firebase.auth().currentUser.uid,
   			isExist: true
@@ -143,44 +142,15 @@ const { open, handleClickOpen, handleClose } = useDialog();
                 />
               </Grid>
               <Grid item xs={12}>
-			  <SunEditor
-            placeholder="Content"
-            setContents={content}
-            onChange={(data) => setContent({ content: data })}
-            height={200}
-            setOptions={{
-              buttonList: [
-                [
-                  "undo",
-                  "redo",
-                  "font",
-                  "fontSize",
-                  "formatBlock",
-                  "bold",
-                  "underline",
-                  "italic",
-                  "strike",
-                  "subscript",
-                  "superscript",
-                  "fontColor",
-                  "hiliteColor",
-                  "removeFormat",
-                  "outdent",
-                  "indent",
-                  "align",
-                  "horizontalRule",
-                  "list",
-                  "lineHeight",
-                  "table",
-                  "link",
-                  "image",
-                  "video",
-                  "showBlocks",
-                  "codeView",
-                ],
-              ],
-            }}
-          />
+              <TextField
+                  autoComplete="given-name"
+                  name="content"
+                  required
+                  fullWidth
+                  id="content"
+                  label="Content"
+                  autoFocus
+                />
               </Grid>
               <Grid item xs={12}>
 			  <FormControl fullWidth >
