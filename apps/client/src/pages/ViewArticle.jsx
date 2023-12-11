@@ -8,7 +8,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function ViewArticle(props) {
     const {article} = props
 
-    console.log('ahassa',article)
   return (
 
       <Dialog
