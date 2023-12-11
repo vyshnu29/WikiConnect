@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "turbo": "^1.11.1"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "node apps/api/dist/main.js"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {
+    "react-icons": "^4.12.0"
+  }
+}

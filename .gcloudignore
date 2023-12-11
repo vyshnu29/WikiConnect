@@ -1,0 +1,4 @@
+!apps/api/src/config/serviceAccountKey.json
+node_modules
+.turbo
+dist
