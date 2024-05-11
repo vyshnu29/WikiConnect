@@ -9,6 +9,7 @@ import { CategoryContextProvider } from "./contexts/CategoryContext"
 
 
 function App() {
+  console.log("");
   const { state,stateSetters  } = useAuthContext()
 
   //Main page
