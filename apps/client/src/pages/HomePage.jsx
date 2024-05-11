@@ -45,7 +45,12 @@ export default function HomePage() {
 		backGroundColor: '#e74c3c',
 		color : 'white',
 	},
-	
+	{
+		category: "Health",
+		icon: <RiHealthBookLine size={44}/>,
+		backGroundColor: '#e74c3c',
+		color : 'white',
+	},
 		
 ]
 
